@@ -1,5 +1,7 @@
 # Feedbrief
 
+[Open Feedbrief](https://feedbrief-jet.vercel.app)
+
 **A little clarity between the tags.** Read a pasted RSS or Atom snapshot as entry cards, inspect identifiers and selected review receipts, and export a complete review readout locally.
 
 ## What you can do
