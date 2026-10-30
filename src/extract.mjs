@@ -17,7 +17,7 @@ export function resolveLink(node,raw,baseURL,atom=false){
 const field=(node,name,ns)=>text(first(node,name,ns));
 function alternate(node,ns){return children(node,'link',ns).find(e=>!e.hasAttribute('rel')||e.getAttribute('rel')==='alternate')??null;}
 export function inspectFields(source,baseURL='',Parser=globalThis.DOMParser){
- if(typeof baseURL!=='string')throw new Error('Base URL must be text.');
+ if(typeof baseURL!=='string'||baseURL.length>2048)throw new Error('Base URL must be text up to 2,048 units.');
  baseURL=baseURL.trim();
  if(baseURL&&httpURL(baseURL).status!=='resolved')throw new Error('Optional feed URL must be an absolute credential-free HTTP(S) URL.');
  const parsed=parseFeedXML(source,Parser),{channel,namespace:ns,format}=parsed,isAtom=ns===ATOM;

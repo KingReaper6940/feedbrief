@@ -1,3 +1,4 @@
+import {installHandoff} from './handoff.mjs';
 import {inspectFeed} from './audit.mjs';import {RSS_EXAMPLE,ATOM_EXAMPLE} from './examples.mjs';
 const $=id=>document.getElementById(id);
 let current=null,page=0;
@@ -45,4 +46,5 @@ $('previous').addEventListener('click',()=>{page--;renderEntries();});$('next').
 function example(source){$('source').value=source;$('base').value='';$('search').value='';$('filter').value='all';inspect();}
 $('rss-example').addEventListener('click',()=>example(RSS_EXAMPLE));$('atom-example').addEventListener('click',()=>example(ATOM_EXAMPLE));
 export function start(){example(RSS_EXAMPLE);}
+installHandoff({getCurrent,inspect});
 start();
