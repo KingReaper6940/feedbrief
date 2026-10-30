@@ -7,11 +7,13 @@ export function httpURL(raw,base){
 }
 export function resolveLink(node,raw,baseURL,atom=false){
  if(!raw)return httpURL('');
- let base=baseURL||undefined;
+ const direct=httpURL(raw);if(direct.status==='resolved')return direct;
+ let base=baseURL||undefined,unusable=false;
  if(atom&&node){
   const chain=[];for(let e=node;e?.nodeType===1;e=e.parentElement)chain.unshift(e);
-  for(const e of chain){const value=e.getAttributeNS(XML,'base');if(value!==null){const result=httpURL(value,base);if(result.status!=='resolved')return {raw,url:null,status:'base',reason:'An xml:base is unsupported, invalid or unresolved.'};base=result.url;}}
+  for(const e of chain){const value=e.getAttributeNS(XML,'base');if(value!==null&&value!==''){const result=httpURL(value,base);unusable=result.status!=='resolved';base=unusable?undefined:result.url;}}
  }
+ if(unusable)return {raw,url:null,status:'base',reason:'An xml:base is unsupported, invalid or unresolved.'};
  return httpURL(raw,base);
 }
 const field=(node,name,ns)=>text(first(node,name,ns));

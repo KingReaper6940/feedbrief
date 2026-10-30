@@ -1,0 +1,5 @@
+{
+  "schema": "feedbrief-project-v1",
+  "source": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<rss version=\"2.0\">\n  <channel>\n    <title>Field Notes</title>\n    <link>https://example.com/notes/</link>\n    <description>A fictional publishing snapshot for review.</description>\n    <item>\n      <title>A slower morning</title>\n      <link>https://example.com/notes/morning</link>\n      <guid isPermaLink=\"false\">note-001</guid>\n      <pubDate>Tue, 06 Jan 2026 09:00:00 GMT</pubDate>\n      <description><![CDATA[<p>A short note about making room for a quiet start.</p>]]></description>\n    </item>\n    <item>\n      <title>The walking list</title>\n      <link>https://example.com/notes/walking</link>\n      <guid isPermaLink=\"false\">note-001</guid>\n      <description>A second post that accidentally reuses the first identifier.</description>\n    </item>\n    <item>\n      <title>Window garden</title>\n      <link>/notes/garden</link>\n      <description>An item without a guid and with a relative link to review.</description>\n    </item>\n  </channel>\n</rss>",
+  "baseURL": ""
+}

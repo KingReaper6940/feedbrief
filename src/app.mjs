@@ -2,7 +2,7 @@ import {installHandoff} from './handoff.mjs';
 import {inspectFeed} from './audit.mjs';import {RSS_EXAMPLE,ATOM_EXAMPLE} from './examples.mjs';
 const $=id=>document.getElementById(id);
 let current=null,page=0;
-export const clip=(value,limit=400)=>value.length>limit?value.slice(0,limit)+' … ['+(value.length-limit)+' text units not shown; full value in exports]':value;
+export function clip(value,limit=400){if(value.length<=limit)return value;let end=limit;if(end>0){const unit=value.charCodeAt(end-1);if(unit>=0xd800&&unit<=0xdbff)end--;}return value.slice(0,end)+' … ['+(value.length-end)+' text units not shown; full value in exports]';}
 export const getCurrent=()=>current;
 export function clear(){document.dispatchEvent(new CustomEvent('feedbrief:clear'));current=null;$('results').hidden=true;$('downloads').replaceChildren();$('save-project').disabled=true;$('status').textContent='Source changed. Inspect again to refresh the readout.';}
 function element(tag,value,className){const e=document.createElement(tag);if(value!==undefined)e.textContent=value;if(className)e.className=className;return e;}
@@ -32,7 +32,7 @@ export function inspect(){
  clear();page=0;
  try{
   current=inspectFeed($('source').value,$('base').value);$('results').hidden=false;
-  $('format').textContent=current.format+' / PASTED SNAPSHOT';$('feed-title').textContent=clip(current.feed.title||'Untitled feed',180);$('feed-description').textContent=clip(current.feed.description,400);$('feed-link').textContent=current.feed.link.url||current.feed.link.raw||'No selected feed link';
+  $('format').textContent=current.format+' / PASTED SNAPSHOT';$('feed-title').textContent=clip(current.feed.title||'Untitled feed',180);$('feed-description').textContent=clip(current.feed.description,400);$('feed-link').textContent=clip(current.feed.link.url||current.feed.link.raw||'No selected feed link',400);
   $('entry-count').textContent=current.entries.length;$('duplicate-count').textContent=current.duplicateIDs.length;$('review-count').textContent=current.findings.filter(f=>f.level==='review').length;$('note-count').textContent=current.findings.filter(f=>f.level==='note').length;
   $('findings').replaceChildren();for(const f of current.findings.slice(0,100))$('findings').append(element('li',(f.entry?'Entry '+f.entry:'Feed')+' · '+f.level+' · '+f.code+' · '+f.message));
   $('findings-summary').textContent='Review receipts ('+current.findings.length+')';$('findings-limit').textContent=current.findings.length>100?(current.findings.length-100)+' findings omitted here; exports contain every finding.':'All selected-check findings shown.';

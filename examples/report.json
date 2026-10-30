@@ -1,0 +1,128 @@
+{
+  "schema": "feedbrief-report-v1",
+  "format": "RSS 2.0",
+  "baseURL": "",
+  "feed": {
+    "title": "Field Notes",
+    "id": "",
+    "description": "A fictional publishing snapshot for review.",
+    "updated": "",
+    "link": {
+      "raw": "https://example.com/notes/",
+      "url": "https://example.com/notes/",
+      "status": "resolved"
+    }
+  },
+  "entries": [
+    {
+      "index": 1,
+      "title": "A slower morning",
+      "id": "note-001",
+      "date": "Tue, 06 Jan 2026 09:00:00 GMT",
+      "dateField": "pubDate",
+      "published": "",
+      "summary": "<p>A short note about making room for a quiet start.</p>",
+      "summaryType": "unspecified",
+      "link": {
+        "raw": "https://example.com/notes/morning",
+        "url": "https://example.com/notes/morning",
+        "status": "resolved"
+      },
+      "counts": {
+        "title": 1,
+        "guid": 1,
+        "pubDate": 1
+      }
+    },
+    {
+      "index": 2,
+      "title": "The walking list",
+      "id": "note-001",
+      "date": "",
+      "dateField": "pubDate",
+      "published": "",
+      "summary": "A second post that accidentally reuses the first identifier.",
+      "summaryType": "unspecified",
+      "link": {
+        "raw": "https://example.com/notes/walking",
+        "url": "https://example.com/notes/walking",
+        "status": "resolved"
+      },
+      "counts": {
+        "title": 1,
+        "guid": 1,
+        "pubDate": 0
+      }
+    },
+    {
+      "index": 3,
+      "title": "Window garden",
+      "id": "",
+      "date": "",
+      "dateField": "pubDate",
+      "published": "",
+      "summary": "An item without a guid and with a relative link to review.",
+      "summaryType": "unspecified",
+      "link": {
+        "raw": "/notes/garden",
+        "url": null,
+        "status": "unresolved",
+        "reason": "URL is invalid or relative without a usable base."
+      },
+      "counts": {
+        "title": 1,
+        "guid": 0,
+        "pubDate": 0
+      }
+    }
+  ],
+  "findings": [
+    {
+      "entry": 2,
+      "code": "entry-date",
+      "level": "note",
+      "message": "No RSS pubDate; this field is optional."
+    },
+    {
+      "entry": 3,
+      "code": "entry-id",
+      "level": "note",
+      "message": "No RSS guid; guid is optional, but stable identifiers help readers."
+    },
+    {
+      "entry": 3,
+      "code": "entry-date",
+      "level": "note",
+      "message": "No RSS pubDate; this field is optional."
+    },
+    {
+      "entry": 3,
+      "code": "entry-link",
+      "level": "review",
+      "message": "Link was not resolved: unresolved."
+    },
+    {
+      "entry": 1,
+      "code": "duplicate-id",
+      "level": "review",
+      "message": "Identifier also appears in entries 2."
+    },
+    {
+      "entry": 2,
+      "code": "duplicate-id",
+      "level": "review",
+      "message": "Identifier also appears in entries 1."
+    }
+  ],
+  "duplicateIDs": [
+    {
+      "value": "note-001",
+      "entries": [
+        1,
+        2
+      ]
+    }
+  ],
+  "duplicateLinks": [],
+  "scope": "Selected field-presence, repeated-entry-field, duplicate trimmed-identifier and selected HTTP-link checks only. Not feed conformance, date, content or reader-compatibility validation."
+}

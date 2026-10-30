@@ -1,0 +1,4 @@
+import {mkdir,writeFile} from 'node:fs/promises';import {JSDOM} from 'jsdom';import {RSS_EXAMPLE,ATOM_EXAMPLE} from '../src/examples.mjs';import {inspectFeed} from '../src/audit.mjs';import {jsonReport,markdownReport,makeProject} from '../src/files.mjs';
+const dom=new JSDOM(''),Parser=dom.window.DOMParser,dir=new URL('../examples/',import.meta.url);await mkdir(dir,{recursive:true});const state=inspectFeed(RSS_EXAMPLE,'',Parser);
+for(const [name,value]of Object.entries({'sample.rss.xml':RSS_EXAMPLE+'\n','sample.atom.xml':ATOM_EXAMPLE+'\n','report.json':jsonReport(state),'brief.md':markdownReport(state),'project.json':JSON.stringify(makeProject(RSS_EXAMPLE,'',Parser),null,2)+'\n'}))await writeFile(new URL(name,dir),value);
+dom.window.close();console.log(JSON.stringify({entries:state.entries.length,duplicateIDGroups:state.duplicateIDs.length,findings:state.findings.length}));

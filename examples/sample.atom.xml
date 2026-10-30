@@ -1,0 +1,9 @@
+<feed xmlns="http://www.w3.org/2005/Atom" xml:base="https://example.com/">
+  <title>Studio Journal</title><id>urn:feed:studio</id>
+  <updated>2026-01-06T09:00:00Z</updated><link href="journal/"/>
+  <entry xml:base="journal/">
+    <title>First light</title><id>urn:entry:first-light</id>
+    <updated>2026-01-06T09:00:00Z</updated><link href="first-light"/>
+    <summary type="text">A fictional entry, with a link resolved through xml:base.</summary>
+  </entry>
+</feed>
